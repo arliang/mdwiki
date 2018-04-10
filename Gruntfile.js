@@ -78,8 +78,8 @@ module.exports = function(grunt) {
 
         // references we add in the slim release (stuff available on CDN locations)
         externalJsRefs: [
-            'ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',
-            'netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js',
+            'cdn.bootcss.com/jquery/1.8.3/jquery.min.js',
+            'cdn.bootcss.com/bootstrap/3.0.0/css/bootstrap.min.css',
             'raw.azureedge.net/joelself/mdwiki/0.6.x.0/extlib/js/prism.1.4.1.min.js'
         ],
         externalCssRefs: [
