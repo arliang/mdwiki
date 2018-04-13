@@ -139,6 +139,20 @@
             // file.content.text;
         });
 
+        editor.on('close', function(file){
+            console.log(file)
+            if(confirm('该文档将不会被保存，确定退出？')){
+                return true
+            } else {
+                return false
+            }
+        })
+
+        editor.on('save', function(file){
+            // save file.content.text;
+            console.log(file)
+        })
+
     }
     window.edit_this_page = edit_this_page;
 
