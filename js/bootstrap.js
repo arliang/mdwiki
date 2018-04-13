@@ -109,6 +109,40 @@
             done();
         });
     }
+    // 编辑本页
+    function edit_this_page () {
+        var filePath = location.hash.substr(2);
+
+        $.ajax({
+            url: filePath,
+            success: function(content){
+                open_stack_edit(filePath, content);
+            }
+        });
+    }
+
+    function save_change (filePath, content) {
+        // update content
+    }
+
+    function open_stack_edit (filePath, content) {
+        var editor = new Stackedit({url: '/markdown-editor/index.html'});
+        editor.openFile({
+            name: filePath, // with a filename
+            content: {
+                text: content // and the Markdown content.
+            }
+        });
+
+        // Listen to StackEdit events and apply the changes to the textarea.
+        editor.on('fileChange', function (file) {
+            // file.content.text;
+        });
+
+    }
+    window.edit_this_page = edit_this_page;
+
+
     // the navbar has different height depending on theme, number of navbar entries,
     // and window/device width. Therefore recalculate on start and upon window resize
     function set_offset_to_navbar () {

@@ -22,6 +22,7 @@
     "globals": {
         "marked": true,
         "jQuery": true,
+        "Stackedit": true,
         "console": true,
         "google": true,
         "hljs": true,

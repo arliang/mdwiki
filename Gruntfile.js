@@ -61,7 +61,8 @@ module.exports = function(grunt) {
         ],
         // ONLY PUT ALREADY MINIFIED FILES IN HERE!
         internalJsFiles: [
-            'extlib/js/jquery.colorbox.min.js'
+            'extlib/js/jquery.colorbox.min.js',
+            'extlib/js/stackedit.min.js'
         ],
 
         // files that we inline in the fat release (basically everything)
@@ -142,6 +143,7 @@ module.exports = function(grunt) {
                     marked: true,
                     google: true,
                     hljs: true,
+                    Stackedit: true,
                     /* leaflet.js*/
                     L: true,
                     console: true,
