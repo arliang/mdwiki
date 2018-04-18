@@ -2,19 +2,19 @@
     'use strict';
 
     var themes = [
-        { name: 'bootstrap', url: 'netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css' },
-        { name: 'amelia', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/amelia/bootstrap.min.css' },
-        { name: 'cerulean', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/cerulean/bootstrap.min.css' },
-        { name: 'cosmo', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/cosmo/bootstrap.min.css' },
-        { name: 'cyborg', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/cyborg/bootstrap.min.css' },
-        { name: 'flatly', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/flatly/bootstrap.min.css' },
-        { name: 'journal', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/journal/bootstrap.min.css' },
-        { name: 'readable', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/readable/bootstrap.min.css' },
-        { name: 'simplex', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/simplex/bootstrap.min.css' },
-        { name: 'slate', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/slate/bootstrap.min.css' },
-        { name: 'spacelab', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/spacelab/bootstrap.min.css' },
-        { name: 'united', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/united/bootstrap.min.css' },
-        { name: 'yeti', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.2/yeti/bootstrap.min.css' }
+        { name: 'bootstrap', url: 'cdn.bootcss.com/bootstrap/3.0.0/css/bootstrap.min.css' },
+        { name: 'amelia', url: 'cdn.bootcss.com/bootswatch/3.0.0/amelia/bootstrap.min.css' },
+        { name: 'cerulean', url: 'cdn.bootcss.com/bootswatch/3.0.0/cerulean/bootstrap.min.css' },
+        { name: 'cosmo', url: 'cdn.bootcss.com/bootswatch/3.0.0/cosmo/bootstrap.min.css' },
+        { name: 'cyborg', url: 'cdn.bootcss.com/bootswatch/3.0.0/cyborg/bootstrap.min.css' },
+        { name: 'flatly', url: 'cdn.bootcss.com/bootswatch/3.0.0/flatly/bootstrap.min.css' },
+        { name: 'journal', url: 'cdn.bootcss.com/bootswatch/3.0.0/journal/bootstrap.min.css' },
+        { name: 'readable', url: 'cdn.bootcss.com/bootswatch/3.0.0/readable/bootstrap.min.css' },
+        { name: 'simplex', url: 'cdn.bootcss.com/bootswatch/3.0.0/simplex/bootstrap.min.css' },
+        { name: 'slate', url: 'cdn.bootcss.com/bootswatch/3.0.0/slate/bootstrap.min.css' },
+        { name: 'spacelab', url: 'cdn.bootcss.com/bootswatch/3.0.0/spacelab/bootstrap.min.css' },
+        { name: 'united', url: 'cdn.bootcss.com/bootswatch/3.0.0/united/bootstrap.min.css' },
+        { name: 'yeti', url: 'cdn.bootcss.com/bootswatch/3.0.2/yeti/bootstrap.min.css' }
     ];
     var useChooser = false;
     var themeChooserGimmick = {
@@ -49,7 +49,7 @@
         }
 
 
-        $('link[rel=stylesheet][href*="netdna.bootstrapcdn.com"]')
+        $('link[rel=stylesheet][href*="cdn.bootcss.com"]')
             .remove();
 
         // slim instance has no bootstrap hardcoded in

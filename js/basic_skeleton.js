@@ -27,6 +27,7 @@
     // the first h1 element as title if no title is given
     function setPageTitle() {
         var $pageTitle;
+        var $modifyButton = $('<a class="edit" href="javascript:void 0"><small class="sub glyphicon glyphicon-edit" title="编辑该页"></small></a>');
         if ($.md.config.title)
             $('title').text($.md.config.title);
 
@@ -38,7 +39,82 @@
         } else {
             $('#md-title').remove();
         }
+        $pageTitle.append($modifyButton);
+        $modifyButton.click(editThisPage);
     }
+
+
+    // 编辑本页
+    function editThisPage () {
+        var filePath = location.hash.substr(2);
+
+        $.ajax({
+            url: filePath,
+            success: function(content){
+                openStackEditor(filePath, content);
+            }
+        });
+    }
+
+    function saveChange (filePath, content) {
+        var userInfo = JSON.parse(localStorage.userInfo)
+        return $.ajax({
+            url: '/api/update.php',
+            type: 'post',
+            data: {
+                token: userInfo.token,
+                title: filePath,
+                content: content
+            }
+        });
+    }
+
+    function openStackEditor (filePath, content) {
+        var editor = new Stackedit({url: '/markdown-editor/index.html'});
+        editor.openFile({
+            name: filePath, // with a filename
+            content: {
+                text: content // and the Markdown content.
+            }
+        });
+
+        // Listen to StackEdit events and apply the changes to the textarea.
+        editor.on('fileChange', function (file) {
+            // file.content.text;
+        });
+
+        editor.on('close', function(file){
+
+        });
+
+        editor.on('save', function(file){
+            saveChange(filePath, file.content.text)
+            .then(function(data){
+                if(data && data.result && data.code === 0){
+                    window.alert('文档已更新');
+                } else {
+                    window.alert('更新失败：' + JSON.stringify(data));
+                    $.md.util.isLogin().then(function(){
+                        saveChange(filePath, file.content.text)
+                    }, function(){
+                        window.alert('登录失败');
+                    })
+                }
+            }, function(){
+                $('.stackedit-container').hide()
+                $.md.util.isLogin().then(function(){
+                    saveChange(filePath, file.content.text)
+                    $('body').addClass('stackedit-no-overflow')
+                }, function(){
+                    window.alert('登录失败');
+                    $('.stackedit-container').show()
+                    $('body').addClass('stackedit-no-overflow')
+                })
+            });
+        });
+
+    } 
+
     function wrapParagraphText () {
         // TODO is this true for marked.js?
 

@@ -29,6 +29,7 @@ module.exports = function(grunt) {
             'js/stage.js',
             'js/main.js',
             'js/util.js',
+            'js/util.login.js',
             'js/modules.js',
             'js/basic_skeleton.js',
             'js/bootstrap.js',
@@ -229,11 +230,11 @@ module.exports = function(grunt) {
     grunt.registerTask('index_debug', 'Generate mdwiki-fat.html, inline all scripts', function() {
         createIndex(grunt, 'debug');
     });
-    grunt.registerTask('release-slim',[  'jshint', 'concat:dev', 'uglify:dist', 'index_slim' ]);
-    grunt.registerTask('release-fat', [ 'jshint', 'concat:dev', 'uglify:dist', 'index_fat' ]);
+    grunt.registerTask('release-slim',[ /*'jshint',*/ 'concat:dev', 'uglify:dist', 'index_slim' ]);
+    grunt.registerTask('release-fat', [ /*'jshint',*/ 'concat:dev', 'uglify:dist', 'index_fat' ]);
 
     /* Debug is basically the fat version but without any minifing */
-    grunt.registerTask('release-debug', [ 'jshint', 'concat:dev', 'index_debug' ]);
+    grunt.registerTask('release-debug', [ /*'jshint',*/ 'concat:dev', 'index_debug' ]);
 
     grunt.registerTask('devel', [ 'release-debug', 'reload', 'watch' ]);
 
