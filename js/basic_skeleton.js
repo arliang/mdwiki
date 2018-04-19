@@ -52,20 +52,32 @@
             url: filePath,
             success: function(content){
                 openStackEditor(filePath, content);
+            },
+            complete: function(xhr){
+                switch(xhr.status){
+                    case 404:
+                        openStackEditor(filePath, '新文档\n======')
+                }
             }
         });
     }
 
     function saveChange (filePath, content) {
-        var userInfo = JSON.parse(localStorage.userInfo)
+        var token, data = {
+            title: filePath,
+            content: content
+        }
+        try{
+            token = JSON.parse(localStorage.userInfo).token
+        } catch(e) {
+        }
+        if(token){
+            data.token = token
+        }
         return $.ajax({
             url: '/api/update.php',
             type: 'post',
-            data: {
-                token: userInfo.token,
-                title: filePath,
-                content: content
-            }
+            data: data
         });
     }
 
@@ -84,7 +96,7 @@
         });
 
         editor.on('close', function(file){
-
+            $('body').removeClass('stackedit-no-overflow')
         });
 
         editor.on('save', function(file){
@@ -92,12 +104,22 @@
             .then(function(data){
                 if(data && data.result && data.code === 0){
                     window.alert('文档已更新');
+                    location.reload();
                 } else {
-                    window.alert('更新失败：' + JSON.stringify(data));
+                    window.alert('更新失败：' + data.msg);
                     $.md.util.isLogin().then(function(){
                         saveChange(filePath, file.content.text)
-                    }, function(){
-                        window.alert('登录失败');
+                    }, function(msg){
+                        if(msg == 'close'){
+                            if($('.stackedit-container').length){
+                                $('.stackedit-container').show()
+                                if(!$('body').is('.stackedit-no-overflow')){
+                                    $('body').addClass('stackedit-no-overflow')
+                                }
+                            }
+                        } else {
+                            window.alert('登录失败');
+                        }
                     })
                 }
             }, function(){
@@ -105,8 +127,10 @@
                 $.md.util.isLogin().then(function(){
                     saveChange(filePath, file.content.text)
                     $('body').addClass('stackedit-no-overflow')
-                }, function(){
-                    window.alert('登录失败');
+                }, function(msg){
+                    if(msg != 'close'){
+                        window.alert('登录失败')
+                    }
                     $('.stackedit-container').show()
                     $('body').addClass('stackedit-no-overflow')
                 })

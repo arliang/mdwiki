@@ -113,15 +113,15 @@ module.exports = function(grunt) {
         index: {
             fat: {
                 template: 'index.tmpl',
-                dest: 'dist/mdwiki.html'
+                dest: 'dist/index.html'
             },
             slim: {
                 template: 'index.tmpl',
-                dest: 'dist/mdwiki-slim.html'
+                dest: 'dist/index-slim.html'
             },
             debug: {
                 template: 'index.tmpl',
-                dest: 'dist/mdwiki-debug.html'
+                dest: 'dist/index-debug.html'
             }
         },
         /* make it use .jshintrc */
@@ -166,20 +166,20 @@ module.exports = function(grunt) {
             release_fat: {
                 expand: false,
                 flatten: true,
-                src: [ 'dist/mdwiki.html' ],
-                dest: 'release/mdwiki-<%= grunt.config("pkg").version %>/mdwiki.html'
+                src: [ 'dist/index.html' ],
+                dest: 'release/mdwiki-<%= grunt.config("pkg").version %>/index.html'
             },
             release_slim: {
                 expand: false,
                 flatten: true,
-                src: [ 'dist/mdwiki-slim.html' ],
-                dest: 'release/mdwiki-<%= grunt.config("pkg").version %>/mdwiki-slim.html'
+                src: [ 'dist/index-slim.html' ],
+                dest: 'release/mdwiki-<%= grunt.config("pkg").version %>/index-slim.html'
             },
             release_debug: {
                 expand: false,
                 flatten: true,
-                src: [ 'dist/mdwiki-debug.html' ],
-                dest: 'release/mdwiki-<%= grunt.config("pkg").version %>/mdwiki-debug.html'
+                src: [ 'dist/index-debug.html' ],
+                dest: 'release/mdwiki-<%= grunt.config("pkg").version %>/index-debug.html'
             },
             release_templates: {
                 expand: true,
@@ -220,7 +220,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-reload');
 
-    grunt.registerTask('index_slim', 'Generate slim mdwiki.html, most scripts on CDN', function() {
+    grunt.registerTask('index_slim', 'Generate slim index.html, most scripts on CDN', function() {
         createIndex(grunt, 'slim');
     });
 
