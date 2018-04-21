@@ -11,12 +11,12 @@ var loginView = [
                 '<div class="modal-body">',
                     '<form>',
                         '<div class="form-group">',
-                            '<label for="name">Email address</label>',
-                            '<input type="text" name="name" class="form-control" id="name" placeholder="name">',
+                            '<label for="name">用户名</label>',
+                            '<input type="text" name="name" class="form-control" id="name" placeholder="请输入用户名，使用code_manage的账号">',
                         '</div>',
                         '<div class="form-group">',
-                            '<label for="passwd">Password</label>',
-                            '<input type="password" name="passwd" class="form-control" id="passwd" placeholder="Password">',
+                            '<label for="passwd">密码</label>',
+                            '<input type="password" name="passwd" class="form-control" id="passwd" placeholder="请输入密码">',
                         '</div>',
                         '<button type="submit" class="btn btn-default">登录</button>',
                     '</form>',
@@ -30,7 +30,7 @@ function loginRequest(loginData){
     return $.Deferred(function (defer){
         $.ajax({
             url: '/api/login.php',
-            method: 'POST', 
+            type: 'POST', 
             data: loginData
         }).then(
             function(res){
@@ -51,6 +51,7 @@ var $loginModal = $(loginView)
 function showLogin(){
     return $.Deferred(function(defer){
         $('body').removeClass('stackedit-no-overflow')
+        $('.stackedit-container').hide()
         $loginModal.modal('show')
         $loginModal.one('submit', 'form', function(){
             var $form = $(this)
@@ -67,6 +68,12 @@ function showLogin(){
             )
             .always(function(){
                 $loginModal.modal('hide')
+                if($('.stackedit-container').length){
+                    $('.stackedit-container').show()
+                    if(!$('body').is('.stackedit-no-overflow')){
+                        $('body').addClass('stackedit-no-overflow')
+                    }
+                }
             })
             return false
         })

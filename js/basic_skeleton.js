@@ -56,6 +56,7 @@
             complete: function(xhr){
                 switch(xhr.status){
                     case 404:
+                    case 302:
                         openStackEditor(filePath, '新文档\n======')
                 }
             }
