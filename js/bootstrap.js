@@ -243,7 +243,7 @@
     function createPageContentMenu () {
 
         // assemble the menu
-        var $headings = $('#md-content').find('h2').clone();
+        var $headings = $('#md-content').find('h2,h3,h4').clone();
         // we dont want the text of any child nodes
         $headings.children().remove();
 
