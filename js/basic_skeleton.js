@@ -27,7 +27,7 @@
     // the first h1 element as title if no title is given
     function setPageTitle() {
         var $pageTitle;
-        var $modifyButton = $('<a class="edit" href="javascript:void 0"><small class="sub glyphicon glyphicon-edit" title="编辑该页"></small></a>');
+        var $modifyButton = $('<a id="modify-button" class="edit" href="javascript:void 0"><small class="sub glyphicon glyphicon-edit" title="编辑该页"></small></a>');
         if ($.md.config.title)
             $('title').text($.md.config.title);
 
@@ -39,8 +39,12 @@
         } else {
             $('#md-title').remove();
         }
-        $pageTitle.append($modifyButton);
-        $modifyButton.click(editThisPage);
+        setTimeout(function(){
+            if($.md.util.isLogin){ // 没登录不显示编辑按钮
+                $pageTitle.append($modifyButton);
+            }
+        }, 3000)
+        $(document).on('click', '#modify-button', editThisPage)
     }
 
 
