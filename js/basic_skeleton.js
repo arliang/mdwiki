@@ -102,39 +102,60 @@
 
         editor.on('save', function(file){
             saveChange(filePath, file.content.text)
-            .then(function(data){
-                if(data && data.result && data.code === 0){
-                    window.alert('文档已更新');
-                    location.reload();
-                } else {
-                    window.alert('更新失败：' + data.msg);
-                    $.md.util.isLogin().then(function(){
-                        saveChange(filePath, file.content.text)
-                    }, function(msg){
-                        if(msg == 'close'){
-                            if($('.stackedit-container').length){
-                                $('.stackedit-container').show()
-                                if(!$('body').is('.stackedit-no-overflow')){
-                                    $('body').addClass('stackedit-no-overflow')
+            .then(function(data){   
+                if(data && data.result && data.code === 5){
+                    /**
+                     * code: 
+                     * 5 未登录
+                     * 0 更新成功
+                     * 其它，提示msg
+                     * 
+                     * 1. 需要登录
+                     * 2. 文件未变化
+                     */
+
+                    $.md.util.showLogin().then(
+                        function(){
+                            saveChange(filePath, file.content.text)
+                        },
+                        function(msg){
+                            if(msg == 'close'){
+                                if($('.stackedit-container').length){
+                                    $('.stackedit-container').show()
+                                    if(!$('body').is('.stackedit-no-overflow')){
+                                        $('body').addClass('stackedit-no-overflow')
+                                    }
                                 }
+                            } else {
+                                window.alert('登录失败')
                             }
-                        } else {
-                            window.alert('登录失败');
                         }
-                    })
+                    )
+                } else if(data.code === 0) { // 更新成功
+                    window.alert(data.msg);
+                    location.reload()
+                } else { // 更新失败
+                    window.alert(data.msg);
                 }
             }, function(){
                 $('.stackedit-container').hide()
-                $.md.util.isLogin().then(function(){
+                if($.md.util.isLogin()){
                     saveChange(filePath, file.content.text)
                     $('body').addClass('stackedit-no-overflow')
-                }, function(msg){
-                    if(msg != 'close'){
-                        window.alert('登录失败')
-                    }
-                    $('.stackedit-container').show()
-                    $('body').addClass('stackedit-no-overflow')
-                })
+                } else {
+                    $.md.util.showLogin().then(
+                        function(){
+                            location.reload();
+                        },
+                        function(msg){
+                            if(msg != 'close'){
+                                window.alert('登录失败')
+                            }
+                            $('.stackedit-container').show()
+                            $('body').addClass('stackedit-no-overflow')
+                        }
+                    )
+                }
             });
         });
 

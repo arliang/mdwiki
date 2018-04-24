@@ -12,7 +12,7 @@ var loginView = [
                     '<form>',
                         '<div class="form-group">',
                             '<label for="name">用户名</label>',
-                            '<input type="text" name="name" class="form-control" id="name" placeholder="请输入用户名，使用code_manage的账号">',
+                            '<input type="text" name="name" class="form-control" id="name" placeholder="请输入用户名，使用oa系统的账号">',
                         '</div>',
                         '<div class="form-group">',
                             '<label for="passwd">密码</label>',
@@ -60,6 +60,8 @@ function showLogin(){
             loginRequest({name: name, passwd: passwd}).then(
                 function(res){
                     localStorage.userInfo = JSON.stringify(res)
+                    $.cookie('token', res.data.token, {expires: +new Date + res.data.expires})
+                    $.cookie('username', res.data.username, {expires: +new Date + res.data.expires})
                     defer.resolve(res)
                 },
                 function(msg){
@@ -88,18 +90,25 @@ function showLogin(){
 }
 
 function isLogin(){
-    var defer = $.Deferred()
-    try{
-        var userInfo = JSON.parse(localStorage.userInfo)
-        defer.resolve(userInfo)
-    } catch(e) {
-        defer = showLogin()
+    var username = $.cookie('username')
+    var token = $.cookie('token')
+    if(username && token){
+        return {
+            username: username,
+            token: token
+        }
     }
-    return defer
+}
+
+function logout(){
+    $.removeCookie('username')
+    $.removeCookie('token')
 }
 
 $.md.util = $.extend ({}, $.md.util, {
-    isLogin: isLogin
+    isLogin: isLogin,
+    showLogin: showLogin,
+    logout: logout
 });
 
 })(jQuery);

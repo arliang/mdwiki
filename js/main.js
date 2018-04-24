@@ -552,5 +552,21 @@
         });
 
         loadContent($.md.mainHref);
+        setTimeout(function(){
+            var userInfo = $.md.util.isLogin()
+            if(!userInfo){
+                $('.nav.navbar-nav.navbar-right').append('<li><a id="showLogin" href="#">登录</a></li>')
+            } else {
+                $('.nav.navbar-nav.navbar-right').append('<li><a id="exitLogin" href="#">' + userInfo.username + '</a></li>')
+            }
+            $(document).on('click', '#showLogin', function(){
+                $.md.util.showLogin()
+                return false
+            })
+            $(document).on('click', '#exitLogin', function(){
+                $.md.util.logout()
+                return false
+            })
+        }, 3000)
     });
 }(jQuery));
