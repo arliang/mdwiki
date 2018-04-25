@@ -60,8 +60,8 @@ function showLogin(){
             loginRequest({name: name, passwd: passwd}).then(
                 function(res){
                     localStorage.userInfo = JSON.stringify(res)
-                    $.cookie('token', res.data.token, {expires: +new Date + res.data.expires})
-                    $.cookie('username', res.data.username, {expires: +new Date + res.data.expires})
+                    $.cookie('token', res.token, {expires: +new Date + res.expires})
+                    $.cookie('username', res.username, {expires: +new Date + res.expires})
                     defer.resolve(res)
                 },
                 function(msg){

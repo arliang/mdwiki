@@ -552,7 +552,7 @@
         });
 
         loadContent($.md.mainHref);
-        setTimeout(function(){
+        $.md.stage('all_ready').subscribe(function(done) {
             var userInfo = $.md.util.isLogin()
             if(!userInfo){
                 $('.nav.navbar-nav.navbar-right').append('<li><a id="showLogin" href="#">登录</a></li>')
@@ -567,6 +567,7 @@
                 $.md.util.logout()
                 return false
             })
-        }, 3000)
+            done()
+        })
     });
 }(jQuery));

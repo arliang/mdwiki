@@ -39,11 +39,12 @@
         } else {
             $('#md-title').remove();
         }
-        setTimeout(function(){
-            if($.md.util.isLogin){ // 没登录不显示编辑按钮
+        $.md.stage('all_ready').subscribe(function(done){
+            if($.md.util.isLogin()){ // 没登录不显示编辑按钮
                 $pageTitle.append($modifyButton);
             }
-        }, 3000)
+            done();
+        })
         $(document).on('click', '#modify-button', editThisPage)
     }
 
