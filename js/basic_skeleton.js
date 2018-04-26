@@ -131,9 +131,10 @@
                                         $('body').addClass('stackedit-no-overflow')
                                     }
                                 }
-                            } else {
-                                window.alert('登录失败')
                             }
+                        },
+                        function(msg){
+                            window.alert(msg)
                         }
                     )
                 } else if(data.code === 0) { // 更新成功
@@ -154,10 +155,13 @@
                         },
                         function(msg){
                             if(msg != 'close'){
-                                window.alert('登录失败')
+                                window.alert(msg)
                             }
                             $('.stackedit-container').show()
                             $('body').addClass('stackedit-no-overflow')
+                        },
+                        function(msg){
+                            window.alert(msg)
                         }
                     )
                 }

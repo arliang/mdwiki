@@ -95,9 +95,8 @@ function showLogin(){
             defer.resolve(res)
         }
         loginError = function(msg){ // 登录失败
-            alert(msg)
+            defer.notify(msg)
         }
-
 
         $loginModal.one('hide.bs.modal', function(){
             console.log(defer)

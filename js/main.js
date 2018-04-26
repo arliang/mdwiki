@@ -560,7 +560,17 @@
                 $('.nav.navbar-nav.navbar-right').append('<li><a id="exitLogin" href="#">' + userInfo.username + '</a></li>')
             }
             $(document).on('click', '#showLogin', function(){
-                $.md.util.showLogin()
+                $.md.util.showLogin().then(
+                    function(){
+                        location.reload()
+                    },
+                    function(){
+                        
+                    },
+                    function(msg){
+                        alert(msg)
+                    }
+                )
                 return false
             })
             $(document).on('click', '#exitLogin', function(){
