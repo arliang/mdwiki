@@ -242,8 +242,9 @@
 
     function createPageContentMenu () {
 
+        var $orgHeadings = $('#md-content').find('h2, h3, h4');
         // assemble the menu
-        var $headings = $('#md-content').find('h2,h3,h4').clone();
+        var $headings = $orgHeadings.clone();
         // we dont want the text of any child nodes
         $headings.children().remove();
 
@@ -277,7 +278,7 @@
             // highlight in the right menu
             $('#md-page-menu a').each(function(i,e) {
                 var $a = $(e);
-                if ($first && $a.toptext() === $first.toptext()) {
+                if ($first && $a.attr('anchor-index') === $first.attr('anchor-index')) {
                     $('#md-page-menu a.active').removeClass('active');
                     //$a.parent('a').addClass('active');
                     $a.addClass('active');
@@ -306,6 +307,9 @@
             var $li = $('<li class="list-group-item" />');
             var $a = $('<a />');
             $a.attr('href', $.md.util.getInpageAnchorHref($heading.toptext()));
+            $a.attr('anchor-index', i);
+            $orgHeadings.eq(i).attr('anchor-index', i);
+
             $a.click(function(ev) {
                 ev.preventDefault();
 
