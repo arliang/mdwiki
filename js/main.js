@@ -574,7 +574,11 @@
                 return false
             })
             $(document).on('click', '#exitLogin', function(){
-                $.md.util.logout()
+                if(confirm('确定退出登录？')){
+                    $.md.util.exitLogin().then(function(){
+                        location.reload()
+                    })
+                }
                 return false
             })
             done()

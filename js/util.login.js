@@ -100,9 +100,11 @@ function showLogin(){
 
         $loginModal.one('hide.bs.modal', function(){
             console.log(defer)
-            if(defer.state() == 'pending'){
-                defer.reject('close')
-            }
+            setTimeout(function(){
+                if(defer.state() == 'pending'){
+                    defer.reject('close')
+                }
+            }, 1000)
         })
         return defer
     })
@@ -121,15 +123,25 @@ function isLogin(){
     }
 }
 
-function logout(){
-    $.removeCookie('username')
-    $.removeCookie('token')
+function exitLogin(){
+    return $.ajax({
+        url: '/api/logout.php',
+        type: 'POST', 
+        data: {
+            token: $.cookie('token')
+        }
+    }).then(function(){
+        $.removeCookie('username')
+        $.removeCookie('token')
+        return $.Deferred().resolve()
+    })
+
 }
 
 $.md.util = $.extend ({}, $.md.util, {
     isLogin: isLogin,
     showLogin: showLogin,
-    logout: logout
+    exitLogin: exitLogin
 });
 
 })(jQuery);
