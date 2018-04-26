@@ -44,41 +44,61 @@ function loginRequest(loginData){
             },
             function(error){
                 defer.reject('无法连上服务器')
-            })
+            }
+        )
     })
 }
 var $loginModal = $(loginView)
+
+var loginOk = function(res){
+
+}
+
+var loginError = function(msg){
+
+}
+
+$loginModal.on('submit', 'form', function(){
+    var $form = $(this)
+    var name = $form.find('#name').val(),
+        passwd = $form.find('#passwd').val()
+    
+    loginRequest({name: name, passwd: passwd}).then(
+        function(res){
+            loginOk(res)
+        },
+        function(msg){
+            loginError(msg)
+        }
+    )
+    return false
+})
+
 function showLogin(){
     return $.Deferred(function(defer){
         $('body').removeClass('stackedit-no-overflow')
         $('.stackedit-container').hide()
         $loginModal.modal('show')
-        $loginModal.one('submit', 'form', function(){
-            var $form = $(this)
-            var name = $form.find('#name').val(),
-                passwd = $form.find('#passwd').val()
-            loginRequest({name: name, passwd: passwd}).then(
-                function(res){
-                    localStorage.userInfo = JSON.stringify(res)
-                    $.cookie('token', res.token, {expires: +new Date + res.expires})
-                    $.cookie('username', res.username, {expires: +new Date + res.expires})
-                    defer.resolve(res)
-                },
-                function(msg){
-                    defer.reject(msg)
+
+        loginOk = function(res){ // 登录成功
+            localStorage.userInfo = JSON.stringify(res)
+            $.cookie('token', res.token, {expires: +new Date + res.expires})
+            $.cookie('username', res.username, {expires: +new Date + res.expires})
+
+            $loginModal.modal('hide')
+            if($('.stackedit-container').length){
+                $('.stackedit-container').show()
+                if(!$('body').is('.stackedit-no-overflow')){
+                    $('body').addClass('stackedit-no-overflow')
                 }
-            )
-            .always(function(){
-                $loginModal.modal('hide')
-                if($('.stackedit-container').length){
-                    $('.stackedit-container').show()
-                    if(!$('body').is('.stackedit-no-overflow')){
-                        $('body').addClass('stackedit-no-overflow')
-                    }
-                }
-            })
-            return false
-        })
+            }
+            defer.resolve(res)
+        }
+        loginError = function(msg){ // 登录失败
+            alert(msg)
+        }
+
+
         $loginModal.one('hide.bs.modal', function(){
             console.log(defer)
             if(defer.state() == 'pending'){
@@ -97,6 +117,8 @@ function isLogin(){
             username: username,
             token: token
         }
+    } else {
+        return false
     }
 }
 
