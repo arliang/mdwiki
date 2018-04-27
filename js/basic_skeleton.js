@@ -52,6 +52,7 @@
     // 编辑本页
     function editThisPage () {
         var filePath = location.hash.substr(2);
+        filePath = decodeURIComponent(filePath)
 
         $.ajax({
             url: filePath,
@@ -69,6 +70,7 @@
     }
 
     function saveChange (filePath, content) {
+        filePath = decodeURIComponent(filePath)
         var token, data = {
             title: filePath,
             content: content
