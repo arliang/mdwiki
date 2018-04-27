@@ -41,7 +41,11 @@
         }
         $.md.stage('all_ready').subscribe(function(done){
             if($.md.util.isLogin()){ // 没登录不显示编辑按钮
-                $pageTitle.append($modifyButton);
+                if(!$pageTitle.length){
+                    $pageTitle.append($modifyButton);
+                } else {
+                    $('#md-content').prepend($modifyButton);
+                }
             }
             done();
         })
