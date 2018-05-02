@@ -245,8 +245,6 @@
         var $orgHeadings = $('#md-content').find('h2, h3, h4');
         // assemble the menu
         var $headings = $orgHeadings.clone();
-        // we dont want the text of any child nodes
-        $headings.children().remove();
 
         if ($headings.length <= 1) {
             return;
@@ -306,7 +304,11 @@
             var $heading = $(e);
             var $li = $('<li class="list-group-item" />');
             var $a = $('<a />');
-            $a.attr('href', $.md.util.getInpageAnchorHref($heading.toptext()));
+            var title = $heading.toptext();
+            if(!title){
+                title = $heading.find('a').eq(0).text();
+            }
+            $a.attr('href', $.md.util.getInpageAnchorHref(title));
             $a.attr('anchor-index', i);
             $orgHeadings.eq(i).attr('anchor-index', i);
 
@@ -317,7 +319,7 @@
                 var anchortext = $.md.util.getInpageAnchorText($this.toptext());
                 $.md.scrollToInPageAnchor(anchortext);
             });
-            $a.text($heading.toptext());
+            $a.text(title);
             $li.append($a);
             $ul.append($li);
         });
