@@ -60,6 +60,7 @@
 
         $.ajax({
             url: filePath,
+            dataType: 'text',
             success: function(content){
                 openStackEditor(filePath, content);
             },
