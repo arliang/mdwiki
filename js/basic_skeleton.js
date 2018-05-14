@@ -76,6 +76,7 @@
 
     function saveChange (filePath, content) {
         filePath = decodeURIComponent(filePath)
+        filePath = filePath.replace(/#.*/, '')
         var token, data = {
             title: filePath,
             content: content
@@ -115,7 +116,7 @@
         editor.on('save', function(file){
             saveChange(filePath, file.content.text)
             .then(function(data){   
-                if(data && data.result && data.code === 5){
+                if(data && data.code === 5){
                     /**
                      * code: 
                      * 5 未登录
