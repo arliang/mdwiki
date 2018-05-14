@@ -242,7 +242,7 @@
 
     function createPageContentMenu () {
 
-        var $orgHeadings = $('#md-content').find('h2, h3, h4');
+        var $orgHeadings = $('#md-content').find('h1, h2, h3, h4');
         // assemble the menu
         var $headings = $orgHeadings.clone();
 
@@ -305,6 +305,15 @@
             var $li = $('<li class="list-group-item" />');
             var $a = $('<a />');
             var title = $heading.toptext();
+            if($heading.is('h2')){
+                $li.css('padding-left', '1em')
+            }
+            if($heading.is('h3')){
+                $li.css('padding-left', '1.5em')
+            }
+            if($heading.is('h4')){
+                $li.css('padding-left', '2em')
+            }
             if(!title){
                 title = $heading.find('a').eq(0).text();
             }
