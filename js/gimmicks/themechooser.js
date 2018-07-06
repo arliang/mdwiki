@@ -137,9 +137,10 @@
     };
 
     var restore_theme = function(opt) {
-        if (window.localStorage.theme) {
-            opt = $.extend({ name: window.localStorage.theme }, opt);
-            set_theme(opt);
-        }
+        // if (window.localStorage.theme) {
+        //     opt = $.extend({ name: window.localStorage.theme }, opt);
+        //     set_theme(opt);
+        // }
+        set_theme({name: "bootstrap"});
     };
 }(jQuery));
