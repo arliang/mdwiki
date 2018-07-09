@@ -299,26 +299,37 @@
         var $pannel = $('<div class="panel panel-default"><ul class="list-group"/></div>');
         var $ul = $pannel.find("ul");
         affixDiv.append($pannel);
+
+        // custom css
+        if(!$('#custom-css').length){
+            $('head').append('<style id="custom-css">#md-content h2,#md-content h3,#md-content h4,#md-content h5{margin-top: 35px}</style>')
+        }
+
         // left navigation list
         $headings.each(function(i,e) {
             var $heading = $(e);
             var $li = $('<li class="list-group-item" />');
             var $a = $('<a />');
             var title = $heading.toptext();
+            var color = 'lightblue';
             if($heading.is('h2')){
-                $li.css('padding-left', '1em')
+                $li.css({'padding-left': '1em'}).addClass('nav-h2')
+                color = '#2c2fde'
             }
             if($heading.is('h3')){
-                $li.css('padding-left', '1.5em')
+                $li.css({'padding-left': '1.5em'}).addClass('nav-h3')
+                color = '#3399f3'
             }
             if($heading.is('h4')){
-                $li.css('padding-left', '2em')
+                $li.css('padding-left', '2em').addClass('nav-h4')
+                color = '#41bd7f'
             }
             if(!title){
                 title = $heading.find('a').eq(0).text();
             }
             $a.attr('href', $.md.util.getInpageAnchorHref(title));
             $a.attr('anchor-index', i);
+            $a.css('color', color)
             $orgHeadings.eq(i).attr('anchor-index', i);
 
             $a.click(function(ev) {
