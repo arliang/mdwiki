@@ -302,7 +302,24 @@
 
         // custom css
         if(!$('#custom-css').length){
-            $('head').append('<style id="custom-css">#md-content h2,#md-content h3,#md-content h4,#md-content h5{margin-top: 35px}</style>')
+            $('head').append(['<style id="custom-css">',
+            '#md-content h2,#md-content h3,#md-content h4,#md-content h5{',
+                'margin-top: 35px',
+              '}',
+              '#md-page-menu .nav-h2 a{',
+                'color: #2070de;',
+                'font-size: 15px',
+              '}',
+              '#md-page-menu .nav-h3 a{',
+                'color: #349af5;',
+                'font-size: 14px',
+              '}',
+              '#md-page-menu .nav-h4 a{',
+                'color: #62abc9;',
+                'font-size: 13px',
+              '}',
+            '</style>'
+            ].join(''))
         }
 
         // left navigation list
@@ -311,25 +328,20 @@
             var $li = $('<li class="list-group-item" />');
             var $a = $('<a />');
             var title = $heading.toptext();
-            var color = 'lightblue';
             if($heading.is('h2')){
                 $li.css({'padding-left': '1em'}).addClass('nav-h2')
-                color = '#2c2fde'
             }
             if($heading.is('h3')){
                 $li.css({'padding-left': '1.5em'}).addClass('nav-h3')
-                color = '#3399f3'
             }
             if($heading.is('h4')){
                 $li.css('padding-left', '2em').addClass('nav-h4')
-                color = '#41bd7f'
             }
             if(!title){
                 title = $heading.find('a').eq(0).text();
             }
             $a.attr('href', $.md.util.getInpageAnchorHref(title));
             $a.attr('anchor-index', i);
-            $a.css('color', color)
             $orgHeadings.eq(i).attr('anchor-index', i);
 
             $a.click(function(ev) {
