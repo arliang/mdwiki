@@ -263,11 +263,17 @@
         };
         
         var recalc_height = function($ele){
-            var height = $(window).height() - parseFloat($("#md-main-navbar").height()) - 200
+            var topBarHeight = parseFloat($("#md-main-navbar").height())
+            var height = $(window).height() - topBarHeight
             $ele.css({
                 'max-height': height,
                 'overflow-y': 'scroll'
             });
+            if($ele.css('position') == 'fixed'){
+                $ele.css({
+                    'top': topBarHeight
+                });
+            }
         };
 
         $(window).scroll(function() {
@@ -331,10 +337,7 @@
                 'color: #005dbb;',
                 'font-size: 14px',
               '}',
-              '#md-page-menu .nav-h4 a{',
-                'color: #2b32b2;',
-                'font-size: 13px',
-              '}',
+              '#md-page-menu .nav-h4{display:none}',
             '</style>'
             ].join(''))
         }
