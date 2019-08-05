@@ -2,19 +2,7 @@
     'use strict';
 
     var themes = [
-        { name: 'bootstrap', url: 'cdn.bootcss.com/bootstrap/3.0.0/css/bootstrap.min.css' },
-        { name: 'amelia', url: 'cdn.bootcss.com/bootswatch/3.0.0/css/amelia/bootstrap.min.css' },
-        { name: 'cerulean', url: 'cdn.bootcss.com/bootswatch/3.0.0/css/cerulean/bootstrap.min.css' },
-        { name: 'cosmo', url: 'cdn.bootcss.com/bootswatch/3.0.0/css/cosmo/bootstrap.min.css' },
-        { name: 'cyborg', url: 'cdn.bootcss.com/bootswatch/3.0.0/css/cyborg/bootstrap.min.css' },
-        { name: 'flatly', url: 'cdn.bootcss.com/bootswatch/3.0.0/css/flatly/bootstrap.min.css' },
-        { name: 'journal', url: 'cdn.bootcss.com/bootswatch/3.0.0/css/journal/bootstrap.min.css' },
-        { name: 'readable', url: 'cdn.bootcss.com/bootswatch/3.0.0/css/readable/bootstrap.min.css' },
-        { name: 'simplex', url: 'cdn.bootcss.com/bootswatch/3.0.0/css/simplex/bootstrap.min.css' },
-        { name: 'slate', url: 'cdn.bootcss.com/bootswatch/3.0.0/css/slate/bootstrap.min.css' },
-        { name: 'spacelab', url: 'cdn.bootcss.com/bootswatch/3.0.0/css/spacelab/bootstrap.min.css' },
-        { name: 'united', url: 'cdn.bootcss.com/bootswatch/3.0.0/css/united/bootstrap.min.css' },
-        { name: 'yeti', url: 'cdn.bootcss.com/bootswatch/3.0.2-2/css/yeti/bootstrap.min.css' }
+        { name: 'bootstrap', url: 'cdn.bootcss.com/bootstrap/3.0.0/css/bootstrap.min.css' }
     ];
     var useChooser = false;
     var themeChooserGimmick = {

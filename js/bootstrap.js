@@ -261,9 +261,18 @@
             var width_left_column = $('#md-left-column').css('width');
             $('#md-page-menu').css('width', width_left_column);
         };
+        
+        var recalc_height = function($ele){
+            var height = $(window).height() - parseFloat($("#md-main-navbar").height()) - 200
+            $ele.css({
+                'max-height': height,
+                'overflow-y': 'scroll'
+            });
+        };
 
         $(window).scroll(function() {
             recalc_width($('#md-page-menu'));
+            recalc_height($('#md-page-menu'))
             var $first;
             $('*.md-inpage-anchor').each(function(i,e) {
                 if ($first === undefined) {
@@ -280,6 +289,9 @@
                     $('#md-page-menu a.active').removeClass('active');
                     //$a.parent('a').addClass('active');
                     $a.addClass('active');
+                    if($('#md-page-menu').css('position') == 'fixed'){
+                        $a[0].scrollIntoView();
+                    }
                 }
             });
         });
@@ -288,12 +300,17 @@
         var affixDiv = $('<div id="md-page-menu" />');
 
         //var top_spacing = $('#md-menu').height() + 15;
-        var top_spacing = 70;
+        // var top_spacing = 70;
         affixDiv.affix({
             //offset: affix.position() - 50,
             offset: 130
         });
-        affixDiv.css('top', top_spacing);
+        affixDiv.on('affix affix-top affix-bottom affixed affixed-top affixed-bottom', function(event){
+            if(affixDiv.css('position') == 'relative'){
+                affixDiv.attr('style', affixDiv.attr('style').replace(/position:.*?;?/, ''))
+            }
+        })
+        // affixDiv.css('top', top_spacing);
         //affix.css('top','-250px');
 
         var $pannel = $('<div class="panel panel-default"><ul class="list-group"/></div>');
@@ -307,15 +324,15 @@
                 'margin-top: 35px',
               '}',
               '#md-page-menu .nav-h2 a{',
-                'color: #2070de;',
+                'color: #1488cc',
                 'font-size: 15px',
               '}',
               '#md-page-menu .nav-h3 a{',
-                'color: #349af5;',
+                'color: #005dbb;',
                 'font-size: 14px',
               '}',
               '#md-page-menu .nav-h4 a{',
-                'color: #62abc9;',
+                'color: #2b32b2;',
                 'font-size: 13px',
               '}',
             '</style>'
@@ -358,6 +375,7 @@
 
         $(window).resize(function () {
             recalc_width($('#md-page-menu'));
+            recalc_height($('#md-page-menu'));
             check_offset_to_navbar();
         });
         $.md.stage('postgimmick').subscribe(function (done) {

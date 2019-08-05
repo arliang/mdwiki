@@ -71,22 +71,22 @@ module.exports = function(grunt) {
         // ONLY PUT ALREADY MINIFIED FILES IN HERE!
         externalJsFiles: [
             'extlib/js/jquery-1.8.3.min.js',
-            'extlib/js/bootstrap-3.0.0.min.js',
+            'extlib/js/bootstrap-3.1.1.min.js',
             'extlib/js/prism.1.4.1.min.js'
         ],
         externalCssFiles: [
-            'extlib/css/bootstrap-3.0.0.min.css',
+            'extlib/css/bootstrap-3.1.1.min.css',
             'extlib/css/prism.1.4.1.default.min.css'
         ],
 
         // references we add in the slim release (stuff available on CDN locations)
         externalJsRefs: [
             'cdn.bootcss.com/jquery/1.8.3/jquery.min.js',
-            'cdn.bootcss.com/bootstrap/3.0.0/css/bootstrap.min.css',
+            'cdn.bootcss.com/bootstrap/3.1.1/css/bootstrap.min.css',
             'raw.azureedge.net/joelself/mdwiki/0.6.x.0/extlib/js/prism.1.4.1.min.js'
         ],
         externalCssRefs: [
-            'netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css',
+            'netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css',
             'raw.azureedge.net/joelself/mdwiki/0.6.x.0/extlib/css/prism.1.4.1.default.min.css'
 //            'www.3solarmasses.com/retriever-bootstrap/css/retriever.css'
 //            '3solarmasses.com/corgi-bootstrap/css/corgi.css'
