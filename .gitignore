@@ -1,6 +1,6 @@
-node_modules
 bower_components/
 node_modules/
+node_modules-7.2/
 dist/
 release/
 .tmp
@@ -8,3 +8,6 @@ app/components
 md/
 .DS_Store
 .AppleDouble
+.tscache/
+#css/
+fonts/

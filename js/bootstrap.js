@@ -246,6 +246,9 @@
         // assemble the menu
         var $headings = $orgHeadings.clone();
 
+        var $sideBar = $('#md-page-menu');
+        var $topBar = $("#md-main-navbar");
+
         if ($headings.length <= 1) {
             return;
         }
@@ -274,6 +277,12 @@
                     'top': topBarHeight
                 });
             }
+            if(affixDiv && affixDiv.is('.affixed-bottom')){
+                $ele.css({
+                    'max-height': height - topBarHeight
+                })
+                $ele.css('top', '+=' + topBarHeight)
+            }
         };
 
         $(window).scroll(function() {
@@ -296,7 +305,12 @@
                     //$a.parent('a').addClass('active');
                     $a.addClass('active');
                     if($('#md-page-menu').css('position') == 'fixed'){
-                        $a[0].scrollIntoView();
+                        var $focus = $a.closest('li')
+                        if($focus.index() == 0){
+                            $sideBar.scrollTop(0)
+                        } else {
+                            $focus.get(0).scrollIntoView()
+                        }
                     }
                 }
             });
@@ -312,8 +326,14 @@
             offset: 130
         });
         affixDiv.on('affix affix-top affix-bottom affixed affixed-top affixed-bottom', function(event){
+            console.log(event.type)
+            recalc_height($sideBar)
             if(affixDiv.css('position') == 'relative'){
-                affixDiv.attr('style', affixDiv.attr('style').replace(/position:.*?;?/, ''))
+                console.log(affixDiv.css('position'))
+                clearTimeout(affixDiv.data('timer'))
+                affixDiv.data('timer', setTimeout(function(){
+                    affixDiv.attr('style', affixDiv.attr('style').replace(/position:\s*relative;?/, ''))
+                }, 100))
             }
         })
         // affixDiv.css('top', top_spacing);
@@ -377,8 +397,8 @@
         });
 
         $(window).resize(function () {
-            recalc_width($('#md-page-menu'));
-            recalc_height($('#md-page-menu'));
+            recalc_width($sideBar);
+            recalc_height($sideBar);
             check_offset_to_navbar();
         });
         $.md.stage('postgimmick').subscribe(function (done) {
